@@ -6,19 +6,20 @@
 #
 Name     : kpkpass
 Version  : 18.08.0
-Release  : 2
+Release  : 3
 URL      : https://download.kde.org/stable/applications/18.08.0/src/kpkpass-18.08.0.tar.xz
 Source0  : https://download.kde.org/stable/applications/18.08.0/src/kpkpass-18.08.0.tar.xz
 Source99 : https://download.kde.org/stable/applications/18.08.0/src/kpkpass-18.08.0.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : LGPL-2.1
-Requires: kpkpass-lib
-Requires: kpkpass-license
-Requires: kpkpass-data
+Requires: kpkpass-data = %{version}-%{release}
+Requires: kpkpass-lib = %{version}-%{release}
+Requires: kpkpass-license = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
-BuildRequires : qtbase-dev qtbase-extras mesa-dev
+BuildRequires : extra-cmake-modules shared-mime-info
+BuildRequires : qtbase-dev mesa-dev
 BuildRequires : shared-mime-info
 
 %description
@@ -36,9 +37,9 @@ data components for the kpkpass package.
 %package dev
 Summary: dev components for the kpkpass package.
 Group: Development
-Requires: kpkpass-lib
-Requires: kpkpass-data
-Provides: kpkpass-devel
+Requires: kpkpass-lib = %{version}-%{release}
+Requires: kpkpass-data = %{version}-%{release}
+Provides: kpkpass-devel = %{version}-%{release}
 
 %description dev
 dev components for the kpkpass package.
@@ -47,8 +48,8 @@ dev components for the kpkpass package.
 %package lib
 Summary: lib components for the kpkpass package.
 Group: Libraries
-Requires: kpkpass-data
-Requires: kpkpass-license
+Requires: kpkpass-data = %{version}-%{release}
+Requires: kpkpass-license = %{version}-%{release}
 
 %description lib
 lib components for the kpkpass package.
@@ -70,18 +71,18 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535432010
-mkdir clr-build
+export SOURCE_DATE_EPOCH=1543348348
+mkdir -p clr-build
 pushd clr-build
 %cmake ..
-make  %{?_smp_mflags}
+make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535432010
+export SOURCE_DATE_EPOCH=1543348348
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/kpkpass
-cp COPYING.LIB %{buildroot}/usr/share/doc/kpkpass/COPYING.LIB
+mkdir -p %{buildroot}/usr/share/package-licenses/kpkpass
+cp COPYING.LIB %{buildroot}/usr/share/package-licenses/kpkpass/COPYING.LIB
 pushd clr-build
 %make_install
 popd
@@ -91,7 +92,7 @@ popd
 
 %files data
 %defattr(-,root,root,-)
-/usr/share/mime/packages/application-vnd-apple-pkpass.xml
+/usr/share/mime-packages/application-vnd-apple-pkpass.xml
 /usr/share/xdg/org_kde_kpkpass.categories
 
 %files dev
@@ -119,5 +120,5 @@ popd
 /usr/lib64/libKPimPkPass.so.5.9.0
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/kpkpass/COPYING.LIB
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/kpkpass/COPYING.LIB
