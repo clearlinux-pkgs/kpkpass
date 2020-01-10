@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kpkpass
-Version  : 19.12.0
-Release  : 16
-URL      : https://download.kde.org/stable/release-service/19.12.0/src/kpkpass-19.12.0.tar.xz
-Source0  : https://download.kde.org/stable/release-service/19.12.0/src/kpkpass-19.12.0.tar.xz
-Source1  : https://download.kde.org/stable/release-service/19.12.0/src/kpkpass-19.12.0.tar.xz.sig
+Version  : 19.12.1
+Release  : 17
+URL      : https://download.kde.org/stable/release-service/19.12.1/src/kpkpass-19.12.1.tar.xz
+Source0  : https://download.kde.org/stable/release-service/19.12.1/src/kpkpass-19.12.1.tar.xz
+Source1  : https://download.kde.org/stable/release-service/19.12.1/src/kpkpass-19.12.1.tar.xz.sig
 Summary  : Apple Wallet Pass reader
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -68,15 +68,15 @@ license components for the kpkpass package.
 
 
 %prep
-%setup -q -n kpkpass-19.12.0
-cd %{_builddir}/kpkpass-19.12.0
+%setup -q -n kpkpass-19.12.1
+cd %{_builddir}/kpkpass-19.12.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1576561680
+export SOURCE_DATE_EPOCH=1578679552
 mkdir -p clr-build
 pushd clr-build
 # -Werror is for werrorists
@@ -93,10 +93,10 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1576561680
+export SOURCE_DATE_EPOCH=1578679552
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kpkpass
-cp %{_builddir}/kpkpass-19.12.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/kpkpass/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/kpkpass-19.12.1/COPYING.LIB %{buildroot}/usr/share/package-licenses/kpkpass/9a1929f4700d2407c70b507b3b2aaf6226a9543c
 pushd clr-build
 %make_install
 popd
@@ -131,7 +131,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKPimPkPass.so.5
-/usr/lib64/libKPimPkPass.so.5.13.0
+/usr/lib64/libKPimPkPass.so.5.13.1
 
 %files license
 %defattr(0644,root,root,0755)
